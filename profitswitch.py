@@ -40,7 +40,7 @@ for x in range(3):
                   'block_time': 60,
                   'block_reward': 2500},
                  {'algo': 'firo', 'price': float(json.loads(requests.get('https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=FIROUSDT', timeout=2).text)['data']['c']),
-                  'diff': int(json.loads(requests.get('https://api.minerstat.com/v2/coins?list=FIRO', timeout=2).text)['data']['difficulty']),
+                  'diff': int(json.loads(requests.get('https://api.minerstat.com/v2/coins?list=FIRO', timeout=2).text)[0]['difficulty']),
                   'block_time': 150,
                   'block_reward': 1.5625}
                  ]
