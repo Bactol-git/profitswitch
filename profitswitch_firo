@@ -1,0 +1,2 @@
+#! /bin/bash
+sudo ./overclocks/OC_rvn && ./miners/trex/t-rex -a firopow -u aJUUzQYWamNjipQTvyccLhFBXXxNqGq4Ws.profitswitch -o stratum+tcp://firo.2miners.com:8181

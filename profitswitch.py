@@ -38,8 +38,13 @@ for x in range(3):
                  {'algo': 'rvn', 'price': float(json.loads(requests.get('https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=RVNUSDT', timeout=2).text)['data']['c']),
                   'diff': int(json.loads(requests.get('https://explorer.mangofarmassets.com/api/status?q=getInfo', timeout=2).text)['info']['difficulty']),
                   'block_time': 60,
-                  'block_reward': 2500}
+                  'block_reward': 2500},
+                 {'algo': 'firo', 'price': float(json.loads(requests.get('https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=FIROUSDT', timeout=2).text)['data']['c']),
+                  'diff': int(json.loads(requests.get('https://api.minerstat.com/v2/coins?list=FIRO', timeout=2).text)['data']['difficulty']),
+                  'block_time': 150,
+                  'block_reward': 1.5625}
                  ]
+
     except Exception as e:
         print(e)
         continue
@@ -80,17 +85,23 @@ etc_est_revenue_usd = etc_est_revenue * stats[3]['price']
 etc_est_reward = etc_est_revenue_usd - eth_cost
 
 HR_req_rvn = stats[4]['diff']/stats[4]['block_time']
-rvn_est_revenue_th = (stats[4]['block_reward']*(seconds_a_day/stats[4]['block_time']))/HR_req_etc
+rvn_est_revenue_th = (stats[4]['block_reward']*(seconds_a_day/stats[4]['block_time']))/HR_req_rvn
 rvn_est_revenue = ((config['rvn']['hash']*megahash))*rvn_est_revenue_th
 rvn_est_revenue_usd = rvn_est_revenue * stats[4]['price']
 rvn_cost = config['rvn']['power']*24*(power_rate/1000)
 rvn_est_reward = rvn_est_revenue_usd - rvn_cost
 
+HR_req_firo = stats[5]['diff']/stats[5]['block_time']
+firo_est_revenue_th = (stats[5]['block_reward']*(seconds_a_day/stats[5]['block_time']))/HR_req_firo
+firo_est_revenue = ((config['rvn']['hash']*megahash))*firo_est_revenue_th
+firo_est_revenue_usd = firo_est_revenue * stats[5]['price']
+firo_cost = config['rvn']['power']*24*(power_rate/1000)
+firo_est_reward = firo_est_revenue_usd - firo_cost
+
 # Choose what algo to mine
-highest_profit = max((eth_est_reward, flux_est_reward, erg_est_reward, etc_est_reward, rvn_est_reward))
+highest_profit = max((eth_est_reward, flux_est_reward, erg_est_reward, etc_est_reward, rvn_est_reward, firo_est_reward))
 
 if highest_profit >= 0.01:
-
     new_algo = ()
     if eth_est_reward == highest_profit:
         new_algo = 'eth'
@@ -102,6 +113,8 @@ if highest_profit >= 0.01:
         new_algo = 'etc'
     if rvn_est_reward == highest_profit:
         new_algo = 'rvn'
+    if firo_est_reward == highest_profit:
+        new_algo = 'firo'
     else:
         pass
 
