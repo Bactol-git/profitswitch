@@ -123,6 +123,13 @@ if highest_profit >= 0.01:
     # Select start script
     start_miner = str('./profitswitch_') + new_algo
 
+    if config['cards'] == 'amd':
+        start_OC = str('sudo ./overclocks/amd_OC_') + new_algo
+    if config['cards'] == 'nvidia':
+        start_OC = str('sudo ./overclocks/nvidia_OC_') + new_algo
+    if config['cards'] == 'mixed':
+        start_OC = str('sudo ./overclocks/amd_OC_') + new_algo + str(' && sudo .&(pwd)/overclocks/nvidia_OC_') + new_algo
+
     print(start_miner)
 
 
@@ -164,7 +171,8 @@ if highest_profit >= 0.01:
         wd = wd.stdout
         wd = wd.strip()
         try:
-            subprocess.Popen(['sudo',start_miner], shell=False, cwd=wd)
+            os.system(start_OC)
+            subprocess.Popen([start_miner], shell=False, cwd=wd)
         except Exception as e:
             print(e)
         with open('current_algo', 'w') as f:
