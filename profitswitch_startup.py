@@ -124,11 +124,11 @@ if highest_profit >= 0.01:
     start_miner = str('./profitswitch_') + new_algo
 
     if config['cards'] == 'amd':
-        start_OC = str('sudo .&(pwd)/overclocks/amd_OC_') + new_algo
+        start_OC = str('sudo ./overclocks/amd_OC_') + new_algo
     if config['cards'] == 'nvidia':
-        start_OC = str('sudo .&(pwd)/overclocks/nvidia_OC_') + new_algo
+        start_OC = str('sudo ./overclocks/nvidia_OC_') + new_algo
     if config['cards'] == 'mixed':
-        start_OC = str('sudo .&(pwd)/overclocks/amd_OC_') + new_algo + str(' && sudo .&(pwd)/overclocks/nvidia_OC_') + new_algo
+        start_OC = str('sudo ./overclocks/amd_OC_') + new_algo + str(' && sudo .&(pwd)/overclocks/nvidia_OC_') + new_algo
 
     wd = subprocess.run('pwd', capture_output=True, text=True)
     wd = wd.stdout
