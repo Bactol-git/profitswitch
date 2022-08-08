@@ -1,6 +1,6 @@
 # profitswitch
 
-This is a program intended to help automate the process of chasing the most profitable coin for your rig. Currently only nvidia card are supported (only tested on 30 series, but will only affect overclock settings).
+This is a program intended to help automate the process of chasing the most profitable coin for your rig. Only tested on 30-series nvidia and 6000-series amd. It should only affect overclock settings, so make sure the overclock settings are suppored for your cards.
 Supported coins: ETH, FLUX, ERG, ETC, RVN, FIRO. More to come at some point.
 1. git clone https://github.com/Bactol-git/profitswitch
 2. cd profitswitch/
@@ -9,7 +9,8 @@ Supported coins: ETH, FLUX, ERG, ETC, RVN, FIRO. More to come at some point.
 5. Place your miners of choice in the miners directory. It is important to place them in this directory so that the program can close the previous miner when it switches. By default a there is a few empty folders showing the intended structure. Make sure you get your miners from the official sources.
 6. Configure the "profitswitch_*" scripts in the main directory to your own wallets, pools, miners and the directory of the miners. You can use the included as templates or to get a grasp of how it should be set up.
 7. Set your rigs hash rate, power draw and your power rate (dollar/kWh) in the config file. You could also set the flux PA multiplier depending on your pools fee rate.
-8. Manually check that the script functions as intended by running "python3 profitswitch_startup.py" from the main directory. If there is an error in the overclock file for the chosen mining algo the script will stop.
+8. Set the "cards" entry in the config file to match your setup. The supported entries are: "amd", "nvidia" and "mixed". 
+9. Manually check that the script functions as intended by running "python3 profitswitch_startup.py" from the main directory. If there is an error in the overclock file for the chosen mining algo the script will stop.
 
 Now everything should be set. You will have to start the services in order for the mining scripts and switching to start. This can be done by running "systemctl --user start profitswitch.service".
 These services will automatically start on reboots once they are set up, so you could also just do a reboot instead of running the command. Note also that the miner will start after 60 seconds on boot. This is in order to let all dependencies start up and to let you have time to stop the service before it starts up if that is ever needed. You could adjust this time in the "profitswitch_startup.service" service found in /etc/systemd/user.
