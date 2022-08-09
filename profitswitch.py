@@ -47,13 +47,12 @@ for x in range(3):
 
     except Exception as e:
         print(e)
+        time.sleep(5)
         continue
     try:
         e
     except NameError:
         break
-    else:
-        time.sleep(5)
 
 # Reward calculations
 
@@ -175,6 +174,9 @@ if highest_profit >= 0.01:
             subprocess.Popen([start_miner], shell=False, cwd=wd)
         except Exception as e:
             print(e)
+
+        time.sleep(20)
+
         with open('current_algo', 'w') as f:
             f.write(new_algo)
         

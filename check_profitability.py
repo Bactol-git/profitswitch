@@ -47,13 +47,12 @@ for x in range(3):
                  
     except Exception as e:
         print(e)
+        time.sleep(5)
         continue
     try:
         e
     except NameError:
         break
-    else:
-        time.sleep(5)
 
 # Reward calculations
 
