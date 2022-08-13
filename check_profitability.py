@@ -15,44 +15,46 @@ seconds_a_day = 60*60*24
 
 power_rate = config['power_rate']
 
+def api_fetch(url_link):
+    for x in (range(3)):
+        try:
+            temp = json.loads(requests.get(url_link, timeout=2).text)
+        except Exception as e:
+            print(e)
+            time.sleep(5)
+            continue
+        try:
+            e
+        except NameError:
+            break
+    return temp
 
 
-for x in range(3):
-    try:
-        stats = [{'algo': 'eth', 'price': float(json.loads(requests.get('https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=ETHUSDT', timeout=2).text)['data']['c']),
-                  'diff': int(json.loads(requests.get('https://api.minerstat.com/v2/coins?list=ETH').text)[0]['difficulty']),
-                  'block_time': float(json.loads(requests.get('https://whattomine.com/coins/151.json?hr=244.0&p=1040.0&fee=0.0&cost=0.1&cost_currency=USD&hcost=0.0&span_br=1h&span_d=24', timeout=2).text)['block_time']),
+stats = [{'algo': 'eth', 'price': float(api_fetch('https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=ETHUSDT')['data']['c']),
+                  'diff': int(api_fetch('https://api.minerstat.com/v2/coins?list=ETH')[0]['difficulty']),
+                  'block_time': float(api_fetch('https://whattomine.com/coins/151.json?hr=244.0&p=1040.0&fee=0.0&cost=0.1&cost_currency=USD&hcost=0.0&span_br=1h&span_d=24')['block_time']),
                   'block_reward': 2},
-                 {'algo': 'flux', 'price': float(json.loads(requests.get('https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=FLUXUSDT', timeout=2).text)['data']['c']),
-                  'diff': int(json.loads(requests.get('https://api.runonflux.io/daemon/getmininginfo', timeout=2).text)['data']['difficulty']),
+                 {'algo': 'flux', 'price': float(api_fetch('https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=FLUXUSDT')['data']['c']),
+                  'diff': int(api_fetch('https://api.runonflux.io/daemon/getmininginfo')['data']['difficulty']),
                   'block_time': 120,
                   'block_reward': 37.5},
-                 {'algo': 'erg', 'price': float(json.loads(requests.get('https://www.coingecko.com/price_charts/2484/usd/24_hours.json', timeout=2).text)['stats'][-1][1]),
-                  'diff': int(json.loads(requests.get('https://api.ergoplatform.com/blocks?limit=1&offset=0&sortBy=height&sortDirection=desc', timeout=2).text)['items'][0]['difficulty']),
+                  {'algo': 'erg', 'price': float(api_fetch('https://www.coingecko.com/price_charts/2484/usd/24_hours.json')['stats'][-1][1]),
+                  'diff': int(api_fetch('https://api.ergoplatform.com/blocks?limit=1&offset=0&sortBy=height&sortDirection=desc')['items'][0]['difficulty']),
                   'block_time': 120,
                   'block_reward': 48},
-                 {'algo': 'etc', 'price': float(json.loads(requests.get('https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=ETCUSDT', timeout=2).text)['data']['c']),
-                  'diff': int(json.loads(requests.get('https://api.minerstat.com/v2/coins?list=ETC', timeout=2).text)[0]['difficulty']),
+                 {'algo': 'etc', 'price': float(api_fetch('https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=ETCUSDT')['data']['c']),
+                  'diff': int(api_fetch('https://api.minerstat.com/v2/coins?list=ETC')[0]['difficulty']),
                   'block_time': 120,
                   'block_reward': 2.48},
-                 {'algo': 'rvn', 'price': float(json.loads(requests.get('https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=RVNUSDT', timeout=2).text)['data']['c']),
-                  'diff': int(json.loads(requests.get('https://explorer.mangofarmassets.com/api/status?q=getInfo', timeout=2).text)['info']['difficulty']),
+                 {'algo': 'rvn', 'price': float(api_fetch('https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=RVNUSDT')['data']['c']),
+                  'diff': int(api_fetch('https://explorer.mangofarmassets.com/api/status?q=getInfo')['info']['difficulty']),
                   'block_time': 60,
                   'block_reward': 2500},
-                 {'algo': 'firo', 'price': float(json.loads(requests.get('https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=FIROUSDT', timeout=2).text)['data']['c']),
-                  'diff': int(json.loads(requests.get('https://api.minerstat.com/v2/coins?list=FIRO', timeout=2).text)[0]['difficulty']),
+                 {'algo': 'firo', 'price': float(api_fetch('https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=FIROUSDT')['data']['c']),
+                  'diff': int(api_fetch('https://api.minerstat.com/v2/coins?list=FIRO')[0]['difficulty']),
                   'block_time': 150,
                   'block_reward': 1.5625}
-                ]
-                 
-    except Exception as e:
-        print(e)
-        time.sleep(5)
-        continue
-    try:
-        e
-    except NameError:
-        break
+                 ]
 
 # Reward calculations
 
