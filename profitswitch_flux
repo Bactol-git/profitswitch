@@ -1,2 +1,2 @@
 #! /bin/bash
-./miners/miniz/miniZ -u t1WGq1EG7HdndpvB87kcqAiMAjcxJ96m5zn.profitswitch -l fi.flux.herominers.com:1200 --port=7001 -p 'minpayout=35' --par=125,4 --pers=ZelProof
+./miners/miniz/miniZ -u t1WGq1EG7HdndpvB87kcqAiMAjcxJ96m5zn.profitswitch -l eu-flux.fluxpools.net --port=7001 -p 'minpayout=35' --par=125,4 --pers=ZelProof

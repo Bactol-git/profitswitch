@@ -5,5 +5,5 @@
 "flux":{"hash": 0, "power": 0},
 "erg":{"hash": 0, "power": 0},
 "rvn":{"hash": 0, "power": 0},
-"flux_PA_multiplier": 1.9
+"flux_PA_multiplier": 1.85
 }
