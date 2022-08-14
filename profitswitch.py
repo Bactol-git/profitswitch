@@ -174,6 +174,8 @@ if highest_profit >= 0.01:
         try:
             os.system(start_OC)
             subprocess.Popen(['sudo',start_miner], shell=False, cwd=wd)
+            with open('current_algo', 'w') as f:
+                f.write(new_algo)
         except Exception as e:
             print(e)      
     
