@@ -1,11 +1,6 @@
 import os
 import subprocess
 
-if len(process_to_kill) == 1:
-    process_to_kill_run = str('sudo kill ') + process_to_kill[0]
-if len(process_to_kill) == 2:
-    process_to_kill_run = str('sudo kill ') + process_to_kill[0] + str(' ') + process_to_kill[1]
-
 os.system('systemctl --user stop profitswitch.service')
 os.system('systemctl --user stop profitswitch_startup.service')
 
@@ -20,6 +15,11 @@ process_to_kill = process.stdout
 
 process_to_kill = process_to_kill.split('\n')
 process_to_kill = list(filter(None, process_to_kill))
+
+if len(process_to_kill) == 1:
+    process_to_kill_run = str('sudo kill ') + process_to_kill[0]
+if len(process_to_kill) == 2:
+    process_to_kill_run = str('sudo kill ') + process_to_kill[0] + str(' ') + process_to_kill[1]
 
 os.system(process_to_kill_run)
 
