@@ -189,6 +189,10 @@ if highest_profit >= 0.01:
         process = subprocess.run(find_PID, capture_output=True, text=True, shell=True)
         process_to_kill = process.stdout
 
+        wd = subprocess.run('pwd', capture_output=True, text=True)
+        wd = wd.stdout
+        wd = wd.strip()
+
         if process_to_kill == '':
             subprocess.Popen(['sudo',start_miner], shell=False, cwd=wd)
 else:
