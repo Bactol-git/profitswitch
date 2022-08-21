@@ -1,2 +1,2 @@
 #! /bin/bash
-./miners/trex/t-rex -a kawpow -u RYAUa8S843pCvbqLftFoXvZqr4oB9jSXew.profitswitch -o stratum+tcp://stratum.ravenminer.com:3838 -p solo
+./miners/trex/t-rex -a kawpow -u BTC:1BFzH1GENoxHqiFgGPcH1avbgn3LTBpATi.profitswitch#wuqt-715z -o kp.unmineable.com:3333

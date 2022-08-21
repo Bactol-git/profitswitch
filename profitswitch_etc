@@ -1,2 +1,3 @@
 #! /bin/bash
-sudo ./miners/1.51a/lolMiner --algo ETCHASH --pool solo-etc.2miners.com:5050 --user 0x16a4d642615a31115751d09ea2ad0d6c690c681f.profitswitch
+sudo ./miners/lolminer/lolMiner --algo ETCHASH --pool etchash.unmineable.com:3333 --user BTC:1BFzH1GENoxHqiFgGPcH1avbgn3LTBpATi.profitswitch#wuqt-715z
+

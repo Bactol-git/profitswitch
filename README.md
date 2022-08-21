@@ -6,7 +6,7 @@ Supported coins: ETH, FLUX, ERG, ETC, RVN, FIRO. More to come at some point.
 2. cd profitswitch/
 3. ./setup.sh
 4. Make sure to set your own overclocks in the overclocking files in the overclocks directory.
-5. Place your miners of choice in the miners directory. It is important to place them in this directory so that the program can close the previous miner when it switches. By default a there is a few empty folders showing the intended structure. Make sure you get your miners from the official sources.
+5. Place your miners of choice in the miners directory. It is important to place them in this directory so that the program can close the previous miner when it switches. The script "setup_miners.sh" fetches the latest releases of lolminer, t-rex miner and miniZ and put them in the correct structure. If you use other miners, just put them in the miners folder and update the profitswitch_* files accordingly.
 6. Configure the "profitswitch_*" scripts in the main directory to your own wallets, pools, miners and the directory of the miners. You can use the included as templates or to get a grasp of how it should be set up.
 7. Set your rigs hash rate, power draw and your power rate (dollar/kWh) in the config file. You could also set the flux PA multiplier depending on your pools fee rate.
 8. Set the "cards" entry in the config file to match your setup. The supported entries are: "amd", "nvidia" and "mixed". 
@@ -24,5 +24,7 @@ There is a python script called "check_profitability" that the program doesnt us
 Note that I can not guarantee that the API will stay up at all times, as these are external. If you want to use other APIs, feel free to modify the python scripts "profitswitch.py" and "profitswitch_startup.py".
 
 There is a "uninstall_services.sh" script that will remove the systemd services and the sudoers file. The actual folder you placed and all the content will for the time being have to be removed manually. Make sure you dont delete the overclocks before you have moved them if you need them later.
+
+If you decide to mine to unmineable please use the referral code: wuqt-715z. You will save a little on the pool fees, and I will get a small kickback.
 
 Please feel free to donate some hash so I can keep coffee in my mug. Enjoy.

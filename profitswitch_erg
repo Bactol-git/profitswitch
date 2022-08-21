@@ -1,2 +1,3 @@
 #! /bin/bash
-sudo ./miners/trex/t-rex -a autolykos2 -o stratum+ssl://ergo.getblok.io:4056 -u 9hXvv1NXcwdxQEnnUuh9QpoVHdPvr2Somhtm53sqZLBLf7eBuNr.profitswitch
+sudo ./miners/trex/t-rex -a autolykos2 -o autolykos.unmineable.com:3333 -u BTC:1BFzH1GENoxHqiFgGPcH1avbgn3LTBpATi.profitswitch#wuqt-715z
+
