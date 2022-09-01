@@ -1,5 +1,6 @@
 #! /bin/bash
 sudo apt install jq
+sudo apt install curl
 #miniz
 mkdir "$(pwd)/miners/miniz"
 miniz=$(curl https://api.github.com/repos/miniZ-miner/miniZ/releases/latest| jq -r ".assets[] | select(.name | test(\"tar.gz\")) | .browser_download_url")
