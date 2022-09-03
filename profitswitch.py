@@ -256,6 +256,8 @@ if highest_profit >= 0.01:
             process_to_kill_run = str('sudo kill ') + process_to_kill[0]
         if len(process_to_kill) == 2:
             process_to_kill_run = str('sudo kill ') + process_to_kill[0] + str(' ') + process_to_kill[1]
+        if len(process_to_kill) == 3:
+            process_to_kill_run = str('sudo kill ') + process_to_kill[0] + str(' ') + process_to_kill[1] + process_to_kill[2]
         if len(process_to_kill) >= 1:        
             try:
                 os.system(process_to_kill_run)
