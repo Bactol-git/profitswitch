@@ -30,9 +30,8 @@ def api_fetch(url_link):
             break
 
     
-urls = [{'algo': 'eth', 'price': 'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=ETHUSDT',
-                  'diff': 'https://api.minerstat.com/v2/coins?list=ETH',
-                  'block_time': 'https://whattomine.com/coins/151.json?hr=244.0&p=1040.0&fee=0.0&cost=0.1&cost_currency=USD&hcost=0.0&span_br=1h&span_d=24'},
+urls = [{'algo': 'cfx', 'price': 'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=CFXUSDT',
+                  'diff': 'https://confluxscan.net/v1/block?limit=10&skip=0'},
                  {'algo': 'flux', 'price':'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=FLUXUSDT',
                   'diff': 'https://api.runonflux.io/daemon/getmininginfo'},
                   {'algo': 'erg', 'price': 'https://www.coingecko.com/price_charts/2484/usd/24_hours.json',
@@ -47,9 +46,8 @@ urls = [{'algo': 'eth', 'price': 'https://www.binance.com/bapi/asset/v2/public/a
 
 
 
-eth_price_temp = api_fetch(urls[0]['price'])
-eth_diff_temp = api_fetch(urls[0]['diff'])
-eth_block_time_temp = api_fetch(urls[0]['block_time'])
+cfx_price_temp = api_fetch(urls[0]['price'])
+cfx_diff_temp = api_fetch(urls[0]['diff'])
 flux_price_temp = api_fetch(urls[1]['price'])
 flux_diff_temp = api_fetch(urls[1]['diff'])
 erg_price_temp = api_fetch(urls[2]['price'])
@@ -61,21 +59,20 @@ rvn_diff_temp = api_fetch(urls[4]['diff'])
 firo_price_temp = api_fetch(urls[5]['price'])
 firo_diff_temp = api_fetch(urls[5]['diff'])
 
+print(cfx_diff_temp['data']['list'][0]['difficulty'])
 
 try:
-    eth_price = float(eth_price_temp['data']['c'])
+    cfx_price = float(cfx_price_temp['data']['c'])
 except Exception as e:
     print(e)
-    eth_price = 0
+    cfx_price = 0
 try:
-    eth_diff = int(eth_diff_temp[0]['difficulty'])
+    cfx_diff = int(cfx_diff_temp['data']['list'][0]['difficulty'])
 except Exception:
-    eth_diff = 0
-try:
-    eth_block_time = float(eth_block_time_temp['block_time'])
-except Exception:
-    eth_block_time = 0
-eth_block_reward = 2
+    cfx_diff = 0
+
+cfx_block_time = 0.5
+cfx_block_reward = 2
 
 try:
     flux_price = float(flux_price_temp['data']['c'])
@@ -135,15 +132,15 @@ firo_block_reward = 1.5625
 
 # Reward calculations
 
-if eth_price != 0 and eth_diff != 0 and eth_block_time != 0:
-    HR_req_eth = eth_diff/eth_block_time
-    eth_est_revenue_th = (eth_block_reward*(seconds_a_day/eth_block_time))/HR_req_eth
-    eth_est_revenue = ((config['eth']['hash']*megahash))*eth_est_revenue_th
-    eth_est_revenue_usd = eth_est_revenue * eth_price
-    eth_cost = (config['eth']['power']/1000)*24*(power_rate)
-    eth_est_reward = eth_est_revenue_usd - eth_cost
+if cfx_price != 0 and cfx_diff != 0 and cfx_block_time != 0:
+    HR_req_cfx = cfx_diff/cfx_block_time
+    cfx_est_revenue_th = (cfx_block_reward*(seconds_a_day/cfx_block_time))/HR_req_cfx
+    cfx_est_revenue = ((config['cfx']['hash']*megahash))*cfx_est_revenue_th
+    cfx_est_revenue_usd = cfx_est_revenue * cfx_price
+    cfx_cost = (config['cfx']['power']/1000)*24*(power_rate)
+    cfx_est_reward = cfx_est_revenue_usd - cfx_cost
 else:
-    eth_est_reward = 0
+    cfx_est_reward = 0
 
 if flux_price != 0 and flux_diff != 0:
     HR_req_flux = flux_diff*10000/flux_block_time
@@ -168,9 +165,9 @@ else:
 if etc_price != 0 and etc_diff != 0:
     HR_req_etc = etc_diff/etc_block_time
     etc_est_revenue_th = (etc_block_reward*(seconds_a_day/etc_block_time))/HR_req_etc
-    etc_est_revenue = ((config['eth']['hash']*megahash))*etc_est_revenue_th
+    etc_est_revenue = ((config['etc']['hash']*megahash))*etc_est_revenue_th
     etc_est_revenue_usd = etc_est_revenue * etc_price
-    etc_cost = (config['eth']['power']/1000)*24*(power_rate)
+    etc_cost = (config['etc']['power']/1000)*24*(power_rate)
     etc_est_reward = etc_est_revenue_usd - etc_cost
 else:
     etc_est_reward = 0
