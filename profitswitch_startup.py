@@ -193,12 +193,12 @@ else:
     firo_est_reward = 0
 
 # Choose what algo to mine
-highest_profit = max((eth_est_reward, flux_est_reward, erg_est_reward, etc_est_reward, rvn_est_reward, firo_est_reward))
+highest_profit = max((cfx_est_reward, flux_est_reward, erg_est_reward, etc_est_reward, rvn_est_reward, firo_est_reward))
 
 if highest_profit >= 0.01:
     new_algo = ()
-    if eth_est_reward == highest_profit:
-        new_algo = 'eth'
+    if cfx_est_reward == highest_profit:
+        new_algo = 'cfx'
     if flux_est_reward == highest_profit:
         new_algo = 'flux'
     if erg_est_reward == highest_profit:
