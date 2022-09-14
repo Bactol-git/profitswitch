@@ -1,2 +1,2 @@
 #! /bin/bash
-./miners/trex/t-rex -a octopus -u cfx:aakmxe4v9j3tt9pmpfnygcyaak4cygkvajtm4pb66n.profitswitch -o stratum+tcp://cfx-eu1.nanopool.org
+./miners/trex/t-rex -a octopus -u cfx:aakmxe4v9j3tt9pmpfnygcyaak4cygkvajtm4pb66n.profitswitch -o stratum+tcp://cfx-eu1.nanopool.org:17777
