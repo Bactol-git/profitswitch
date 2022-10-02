@@ -6,7 +6,7 @@ Supported coins: ETH, FLUX, ERG, ETC, RVN, FIRO. More to come at some point.
 2. cd profitswitch/
 3. ./setup.sh
 4. Make sure to set your own overclocks in the overclocking files in the overclocks directory.
-5. Place your miners of choice in the miners directory. It is important to place them in this directory so that the program can close the previous miner when it switches. The script "setup_miners.sh" fetches the latest releases of lolminer, t-rex miner and miniZ and put them in the correct structure. If you use other miners, just put them in the miners folder and update the profitswitch_* files accordingly.
+5. Place your miners of choice in the miners directory. It is important to place them in this directory so that the program can close the previous miner when it switches. The script "setup_miners.sh" fetches the latest releases of lolminer, t-rex miner, teamredminer and miniZ and put them in the correct structure. If you use other miners, just put them in the miners folder and update the profitswitch_* files accordingly.
 6. Configure the "profitswitch_*" scripts in the main directory to your own wallets, pools, miners and the directory of the miners. You can use the included as templates or to get a grasp of how it should be set up.
 7. Set your rigs hash rate, power draw and your power rate (dollar/kWh) in the config file. You could also set the flux PA multiplier depending on your pools fee rate.
 8. Set the "cards" entry in the config file to match your setup. The supported entries are: "amd", "nvidia" and "mixed". 
