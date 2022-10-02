@@ -13,13 +13,15 @@ Supported coins: ETH, FLUX, ERG, ETC, RVN, FIRO. More to come at some point.
 9. Manually check that the script functions as intended by running "python3 profitswitch_startup.py" from the main directory. If there is an error in the overclock file for the chosen mining algo the script will stop.
 
 Now everything should be set. You will have to start the services in order for the mining scripts and switching to start. This can be done by running "systemctl --user start profitswitch.service".
-These services will automatically start on reboots once they are set up, so you could also just do a reboot instead of running the command. Note also that the miner will start after 60 seconds on boot. This is in order to let all dependencies start up and to let you have time to stop the service before it starts up if that is ever needed. You could adjust this time in the "profitswitch_startup.service" service found in /etc/systemd/user.
+These services will automatically start on reboots once they are set up, so you could also just do a reboot instead of running the command.
 
-The program is set up to check profitability every hour. This can be adjusted in the service "profitswitch.service", also found in /etc/systemd/user.
+The program is set up to check profitability on startup, then switching to zil while their PoW block is active, and then checks profitability and switches again.
 
-IMPORTANT for maintenance and possible issues: In order to stop the miner before it starts on boot you have to stop the profitswitch_startup.service before it goes off. You can do that by "systemctl --user stop profitswitch_startup.service". If it goes off you have to kill the miner process. You can find the PID by running "ps -ef | grep miners | grep -v grep | awk '{print $2}'". To kill it simply "kill number". Mark that this will not stop the hourly switching, so you would have to stop that aswell in order to completely stop the program "sudo systemctl --user stop profitswitch.service". The python script "killswitch.py" will kill both services and any running miners started by the program.
+IMPORTANT for maintenance and possible issues: The python script "killswitch.py" will kill the profitswitch service and any running miners started by the program.
 
 There is a python script called "check_profitability" that the program doesnt use, but is included so that you as a user can manually check your rigs projected profit (dollar a day) on the different algos. To run that simply run "python3 check_profitability" from the main directory.
+
+If you want to see the miner running start the script "show_miner.sh". It will promt you for root password as the miners are ran as sudo to unlock LHR.
 
 Note that I can not guarantee that the API will stay up at all times, as these are external. If you want to use other APIs, feel free to modify the python scripts "profitswitch.py" and "profitswitch_startup.py".
 
