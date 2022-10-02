@@ -1,0 +1,1 @@
+curl -d '{ "id": "1", "jsonrpc": "2.0", "method": "GetCurrentMiniEpoch", "params": [""]}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"

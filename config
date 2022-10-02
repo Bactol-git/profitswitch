@@ -1,10 +1,11 @@
 {
-"cards": "",
+"cards": "nvidia",
 "power_rate":0.05,
-"etc":{"hash": 452, "power": 996},
-"flux":{"hash": 0, "power": 0},
-"erg":{"hash": 0, "power": 0},
-"rvn":{"hash": 0, "power": 0},
-"cfx":{"hash": 94, "power": 330},
-"flux_PA_multiplier": 1.85
+"etc":{"hash": 386, "power": 1090},
+"flux":{"hash": 409, "power": 1246},
+"erg":{"hash": 1000, "power": 793},
+"rvn":{"hash": 188, "power": 1200},
+"cfx":{"hash": 364, "power": 1290},
+"ethw":{"hash": 386, "power": 1090},
+"flux_PA_multiplier": 1.895
 }

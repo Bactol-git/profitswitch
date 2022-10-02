@@ -41,7 +41,9 @@ urls = [{'algo': 'cfx', 'price': 'https://www.binance.com/bapi/asset/v2/public/a
                  {'algo': 'rvn', 'price': 'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=RVNUSDT',
                   'diff': 'https://explorer.mangofarmassets.com/api/status?q=getInfo'},
                  {'algo': 'firo', 'price': 'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=FIROUSDT',
-                  'diff': 'https://api.minerstat.com/v2/coins?list=FIRO'}
+                  'diff': 'https://api.minerstat.com/v2/coins?list=FIRO'},
+                 {'algo': 'ethw', 'price': 'https://ftx.com/api/markets/ETHW/USD',
+                  'diff': 'https://iceberg.ethwmine.com/api/stats'}
                  ]
 
 
@@ -58,8 +60,9 @@ rvn_price_temp = api_fetch(urls[4]['price'])
 rvn_diff_temp = api_fetch(urls[4]['diff'])
 firo_price_temp = api_fetch(urls[5]['price'])
 firo_diff_temp = api_fetch(urls[5]['diff'])
+ethw_price_temp = api_fetch(urls[6]['price'])
+ethw_diff_temp = api_fetch(urls[6]['diff'])
 
-print(cfx_diff_temp['data']['list'][0]['difficulty'])
 
 try:
     cfx_price = float(cfx_price_temp['data']['c'])
@@ -94,8 +97,11 @@ try:
 except Exception:
     erg_diff = 0
 erg_block_time = 120
-erg_block_reward = 48
-
+try:
+    erg_block_reward = float(erg_diff_temp['items'][0]['minerReward'])/1000000000
+except Exception:
+    erg_block_reward = 0.00000001
+    
 try:
     etc_price = float(etc_price_temp['data']['c'])
 except Exception:
@@ -105,8 +111,11 @@ try:
 except Exception:
     etc_diff = 0
 etc_block_time = 13
-etc_block_reward = 2.48
-
+try:
+    etc_block_reward = float(etc_diff_temp[0]['reward_block'])
+except Exception:
+    etc_block_reward = 0.00000001
+    
 try:
     rvn_price = float(rvn_price_temp['data']['c'])
 except Exception:
@@ -116,7 +125,10 @@ try:
 except Exception:
     rvn_diff = 0
 rvn_block_time = 60
-rvn_block_reward = 2500
+try:
+    rvn_block_reward = float(rvn_diff_temp['info']['reward'])/100000000
+except Exception:
+    rvn_block_reward = 0.00000001
 
 try:
     firo_price = float(firo_price_temp['data']['c'])
@@ -127,76 +139,53 @@ try:
 except Exception:
     firo_diff = 0
 firo_block_time = 150
-firo_block_reward = 1.5625
+try:
+    firo_block_reward = float(firo_diff_temp[0]['reward_block'])
+except Exception:
+    firo_block_reward = 0.00000001
 
+try:
+    ethw_price = float(ethw_price_temp['result']['price'])
+except Exception:
+    ethw_price = 0
+try:
+    ethw_diff = int(ethw_diff_temp['nodes'][0]['difficulty'])
+except Exception:
+    ethw_diff = 0
+ethw_block_time = 13
+ethw_block_reward = 2
 
 # Reward calculations
 
-if cfx_price != 0 and cfx_diff != 0 and cfx_block_time != 0:
-    HR_req_cfx = cfx_diff/cfx_block_time
-    cfx_est_revenue_th = (cfx_block_reward*(seconds_a_day/cfx_block_time))/HR_req_cfx
-    cfx_est_revenue = ((config['cfx']['hash']*megahash))*cfx_est_revenue_th
-    cfx_est_revenue_usd = cfx_est_revenue * cfx_price
-    cfx_cost = (config['cfx']['power']/1000)*24*(power_rate)
-    cfx_est_reward = cfx_est_revenue_usd - cfx_cost
-else:
-    cfx_est_reward = 0
 
-if flux_price != 0 and flux_diff != 0:
-    HR_req_flux = flux_diff*10000/flux_block_time
-    flux_est_revenue_th = (flux_block_reward*config['flux_PA_multiplier']*(seconds_a_day/flux_block_time))/HR_req_flux
-    flux_est_revenue = ((config['flux']['hash']))*flux_est_revenue_th
-    flux_est_revenue_usd = flux_est_revenue * flux_price
-    flux_cost = (config['flux']['power']/1000)*24*(power_rate)
-    flux_est_reward = flux_est_revenue_usd - flux_cost
-else:
-    flux_est_reward = 0
+def reward_calc(price, diff, block_time, block_reward, hashrate, power, power_rate):
+    if cfx_price != 0 and cfx_diff != 0 and cfx_block_time != 0:
+        HR_req = diff/block_time
+        est_revenue_th = (block_reward*(seconds_a_day/block_time))/HR_req
+        est_revenue = ((hashrate*megahash))*est_revenue_th
+        est_revenue_usd = est_revenue * price
+        cost = (power/1000)*24*(power_rate)
+        est_reward = est_revenue_usd - cost
+        return est_reward
+    else:
+        est_reward = 0
+        return est_reward
 
-if erg_price != 0 and erg_diff != 0:
-    HR_req_erg = erg_diff/erg_block_time
-    erg_est_revenue_th = (erg_block_reward*(seconds_a_day/erg_block_time))/HR_req_erg
-    erg_est_revenue = ((config['erg']['hash']*megahash))*erg_est_revenue_th
-    erg_est_revenue_usd = erg_est_revenue * erg_price
-    erg_cost = (config['erg']['power']/1000)*24*(power_rate)
-    erg_est_reward = erg_est_revenue_usd - erg_cost
-else:
-    erg_est_reward = 0
 
-if etc_price != 0 and etc_diff != 0:
-    HR_req_etc = etc_diff/etc_block_time
-    etc_est_revenue_th = (etc_block_reward*(seconds_a_day/etc_block_time))/HR_req_etc
-    etc_est_revenue = ((config['etc']['hash']*megahash))*etc_est_revenue_th
-    etc_est_revenue_usd = etc_est_revenue * etc_price
-    etc_cost = (config['etc']['power']/1000)*24*(power_rate)
-    etc_est_reward = etc_est_revenue_usd - etc_cost
-else:
-    etc_est_reward = 0
+cfx_est_reward = reward_calc(price=cfx_price, diff=cfx_diff, block_time=cfx_block_time, block_reward=cfx_block_reward,hashrate=config['cfx']['hash'],power=config['cfx']['power'], power_rate=power_rate)
+flux_est_reward = reward_calc(price=flux_price, diff=flux_diff*10000, block_time=flux_block_time, block_reward=flux_block_reward*config['flux_PA_multiplier'],hashrate=config['flux']['hash']/megahash,power=config['flux']['power'], power_rate=power_rate)
+erg_est_reward = reward_calc(price=erg_price, diff=erg_diff, block_time=erg_block_time, block_reward=erg_block_reward,hashrate=config['erg']['hash'],power=config['erg']['power'], power_rate=power_rate)
+etc_est_reward = reward_calc(price=etc_price, diff=etc_diff, block_time=etc_block_time, block_reward=etc_block_reward,hashrate=config['etc']['hash'],power=config['etc']['power'], power_rate=power_rate)
+rvn_est_reward = reward_calc(price=rvn_price, diff=rvn_diff*2**32, block_time=rvn_block_time, block_reward=rvn_block_reward,hashrate=config['rvn']['hash'],power=config['rvn']['power'], power_rate=power_rate)
+firo_est_reward = reward_calc(price=firo_price, diff=firo_diff*2**32, block_time=firo_block_time, block_reward=firo_block_reward,hashrate=config['rvn']['hash'],power=config['rvn']['power'], power_rate=power_rate)
+ethw_est_reward = reward_calc(price=ethw_price, diff=ethw_diff, block_time=ethw_block_time, block_reward=ethw_block_reward,hashrate=config['ethw']['hash'],power=config['ethw']['power'], power_rate=power_rate)
 
-if rvn_price != 0 and rvn_diff != 0:
-    HR_req_rvn = (rvn_diff*2**32)/rvn_block_time
-    rvn_est_revenue_th = (rvn_block_reward*(seconds_a_day/rvn_block_time))/HR_req_rvn
-    rvn_est_revenue = ((config['rvn']['hash']*megahash))*rvn_est_revenue_th
-    rvn_est_revenue_usd = rvn_est_revenue * rvn_price
-    rvn_cost = (config['rvn']['power']/1000)*24*(power_rate)
-    rvn_est_reward = rvn_est_revenue_usd - rvn_cost
-else:
-    rvn_est_reward = 0
-
-if firo_price != 0 and firo_diff != 0:
-    HR_req_firo = (firo_diff*2**32)/firo_block_time
-    firo_est_revenue_th = (firo_block_reward*(seconds_a_day/firo_block_time))/HR_req_firo
-    firo_est_revenue = ((config['rvn']['hash']*megahash))*firo_est_revenue_th
-    firo_est_revenue_usd = firo_est_revenue * firo_price
-    firo_cost = (config['rvn']['power']/1000)*24*(power_rate)
-    firo_est_reward = firo_est_revenue_usd - firo_cost
-else:
-    firo_est_reward = 0
-
-    
+ 
 print('CFX:  ', round(cfx_est_reward,2))
 print('FLUX: ',round(flux_est_reward,2))
 print('ERG:  ', round(erg_est_reward,2))
 print('ETC:  ', round(etc_est_reward,2))
 print('RVN:  ', round(rvn_est_reward,2))
 print('FIRO:  ', round(firo_est_reward,2))
+print('ETHW:  ', round(ethw_est_reward,2))
 

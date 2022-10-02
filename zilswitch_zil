@@ -1,0 +1,2 @@
+#! /bin/bash
+sudo ./miners/trex/t-rex -a etchash --coin etс -o stratum+ssl://eu.ezil.me:24443  -o stratum+ssl://ro.ezil.me:24443  -u 0x22133b9beef2ecdf5f16950538675925d5da8249.zil1nr5a0c5svt32yljue67phw76lcxj9sr7mrl4nd -w profitswitch --extra-dag-epoch 0

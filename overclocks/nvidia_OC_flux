@@ -1,27 +1,33 @@
 sudo nvidia-smi -pm ENABLED
 
-sudo -n nvidia-smi -i 0 --power-limit=140
-sudo nvidia-smi -i 0 --lock-gpu-clocks=1400
+sudo -n nvidia-smi -i 0 --power-limit=120
+#sudo nvidia-smi -i 0 --lock-gpu-clocks=1400
+sudo nvidia-settings -a [gpu:0]/GPUGraphicsClockOffset[4]=200
 sudo nvidia-settings -a [gpu:0]/GPUMemoryTransferRateOffset[4]=0
 
-sudo -n nvidia-smi -i 1 --power-limit=265
-sudo nvidia-smi -i 1 --lock-gpu-clocks=1450
+sudo -n nvidia-smi -i 1 --power-limit=255
+#sudo nvidia-smi -i 1 --lock-gpu-clocks=1450
+sudo nvidia-settings -a [gpu:1]/GPUGraphicsClockOffset[4]=200
 sudo nvidia-settings -a [gpu:1]/GPUMemoryTransferRateOffset[4]=0
 
-sudo -n nvidia-smi -i 2 --power-limit=140
-sudo nvidia-smi -i 2 --lock-gpu-clocks=1400
+sudo -n nvidia-smi -i 2 --power-limit=120
+#sudo nvidia-smi -i 2 --lock-gpu-clocks=1400
+sudo nvidia-settings -a [gpu:2]/GPUGraphicsClockOffset[4]=200
 sudo nvidia-settings -a [gpu:2]/GPUMemoryTransferRateOffset[4]=0
 
 sudo -n nvidia-smi -i 3 --power-limit=280
-sudo nvidia-smi -i 3 --lock-gpu-clocks=1450
+#sudo nvidia-smi -i 3 --lock-gpu-clocks=1450
+sudo nvidia-settings -a [gpu:3]/GPUGraphicsClockOffset[4]=200
 sudo nvidia-settings -a [gpu:3]/GPUMemoryTransferRateOffset[4]=0
 
-sudo -n nvidia-smi -i 4 --power-limit=140
-sudo nvidia-smi -i 4 --lock-gpu-clocks=1500
+sudo -n nvidia-smi -i 4 --power-limit=106
+#sudo nvidia-smi -i 4 --lock-gpu-clocks=1500
+sudo nvidia-settings -a [gpu:4]/GPUGraphicsClockOffset[4]=200
 sudo nvidia-settings -a [gpu:4]/GPUMemoryTransferRateOffset[4]=0
 
-sudo -n nvidia-smi -i 5 --power-limit=140
-sudo nvidia-smi -i 5 --lock-gpu-clocks=1500
+sudo -n nvidia-smi -i 5 --power-limit=112
+#sudo nvidia-smi -i 5 --lock-gpu-clocks=1500
+sudo nvidia-settings -a [gpu:5]/GPUGraphicsClockOffset[4]=200
 sudo nvidia-settings -a [gpu:5]/GPUMemoryTransferRateOffset[4]=0
 
 

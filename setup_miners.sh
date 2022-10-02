@@ -22,4 +22,9 @@ wget $trex
 tar -xf t-rex* --dir="$(pwd)/miners/trex"
 rm t-rex*
 
-
+#teamredminer
+mkdir "$(pwd)/miners/teamredminer"
+trm=$(curl https://api.github.com/repos/todxx/teamredminer/releases/latest| jq -r ".assets[] | select(.name | test(\"linux.tgz\")) | .browser_download_url")
+wget $trm
+tar -xf teamredminer* --dir="$(pwd)/miners/teamredminer" --strip-components=1
+rm teamredminer*
