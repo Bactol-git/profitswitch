@@ -159,7 +159,7 @@ ethw_block_reward = 2
 
 
 def reward_calc(price, diff, block_time, block_reward, hashrate, power, power_rate):
-    if cfx_price != 0 and cfx_diff != 0 and cfx_block_time != 0:
+    if price != 0 and diff != 0 and block_time != 0:
         HR_req = diff/block_time
         est_revenue_th = (block_reward*(seconds_a_day/block_time))/HR_req
         est_revenue = ((hashrate*megahash))*est_revenue_th
