@@ -74,8 +74,10 @@ if height_temp >= 99 or height_temp ==0:
                 start_OC = str('sudo ./overclocks/nvidia_OC_etc')
             if config['cards'] == 'mixed':
                 start_OC = str('sudo ./overclocks/amd_OC_etc')  + str(' && sudo .&(pwd)/overclocks/nvidia_OC_etc')
+                
             os.system(start_OC)
-            time.sleep(2)
+            if config['cards'] == 'amd':
+                time.sleep(4)
             start_zil = str("nohup sudo ./zilswitch_zil > log.out 2>&1 &")
             os.system(start_zil)
         except Exception as e:
@@ -337,11 +339,12 @@ else:
             if config['cards'] == 'nvidia':
                 start_OC = str('sudo ./overclocks/nvidia_OC_') + new_algo
             if config['cards'] == 'mixed':
-                start_OC = str('sudo ./overclocks/amd_OC_') + new_algo + str(' && sudo .&(pwd)/overclocks/nvidia_OC_') + new_algo
+                start_OC = str('sudo ./overclocks/amd_OC_') + new_algo + str(' && sudo .&(pwd)/overclocks/nvidia_OC_') + new_algo 
 
             try:
                 os.system(start_OC)
-                time.sleep(2)
+                if config['cards'] == 'amd':
+                    time.sleep(4)
                 os.system(start_miner)
             except Exception as e:
                 print(e)
