@@ -163,7 +163,7 @@ else:
                   'diff': 'https://confluxscan.net/v1/block?limit=10&skip=0'},
                  {'algo': 'flux', 'price':'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=FLUXUSDT',
                   'diff': 'https://api.runonflux.io/daemon/getmininginfo'},
-                  {'algo': 'erg', 'price': 'https://www.coingecko.com/price_charts/2484/usd/24_hours.json',
+                 {'algo': 'erg', 'price': 'https://www.coingecko.com/price_charts/2484/usd/24_hours.json',
                   'diff': 'https://api.ergoplatform.com/blocks?limit=1&offset=0&sortBy=height&sortDirection=desc'},
                  {'algo': 'etc', 'price': 'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=ETCUSDT',
                   'diff': 'https://api.minerstat.com/v2/coins?list=ETC'},
@@ -172,8 +172,11 @@ else:
                  {'algo': 'firo', 'price': 'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=FIROUSDT',
                   'diff': 'https://api.minerstat.com/v2/coins?list=FIRO'},
                  {'algo': 'ethw', 'price': 'https://ftx.com/api/markets/ETHW/USD',
-                  'diff': 'https://iceberg.ethwmine.com/api/stats'}
+                  'diff': 'https://iceberg.ethwmine.com/api/stats'},
+                 {'algo': 'beam', 'price': 'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=BEAMUSDT',
+                  'diff': 'https://mainnet-explorer.beam.mw/explorer/blocks/?format=json&page=1'},
                  ]
+
 
 
         cfx_price_temp = api_fetch(urls[0]['price'])
@@ -190,6 +193,8 @@ else:
         firo_diff_temp = api_fetch(urls[5]['diff'])
         ethw_price_temp = api_fetch(urls[6]['price'])
         ethw_diff_temp = api_fetch(urls[6]['diff'])
+        beam_price_temp = api_fetch(urls[7]['price'])
+        beam_diff_temp = api_fetch(urls[7]['diff'])
 
 
         try:
@@ -283,7 +288,19 @@ else:
         ethw_block_time = 13
         ethw_block_reward = 2
 
+        try:
+            beam_price = float(beam_price_temp['data']['c'])
+        except Exception:
+            beam_price = 0
+        try:
+            beam_diff = int(beam_diff_temp['results'][0]['difficulty'])
+        except Exception:
+            beam_diff = 0
+        beam_block_time = 60
+        beam_block_reward = 40
+
         # Reward calculations
+
 
         def reward_calc(price, diff, block_time, block_reward, hashrate, power, power_rate):
             if price != 0 and diff != 0 and block_time != 0:
@@ -306,10 +323,11 @@ else:
         rvn_est_reward = reward_calc(price=rvn_price, diff=rvn_diff*2**32, block_time=rvn_block_time, block_reward=rvn_block_reward,hashrate=config['rvn']['hash'],power=config['rvn']['power'], power_rate=power_rate)
         firo_est_reward = reward_calc(price=firo_price, diff=firo_diff*2**32, block_time=firo_block_time, block_reward=firo_block_reward,hashrate=config['rvn']['hash'],power=config['rvn']['power'], power_rate=power_rate)
         ethw_est_reward = reward_calc(price=ethw_price, diff=ethw_diff, block_time=ethw_block_time, block_reward=ethw_block_reward,hashrate=config['ethw']['hash'],power=config['ethw']['power'], power_rate=power_rate)
+        beam_est_reward = reward_calc(price=beam_price, diff=beam_diff*10000000, block_time=beam_block_time, block_reward=beam_block_reward,hashrate=config['beam']['hash'],power=config['beam']['power'], power_rate=power_rate)
 
 
         # Choose what algo to mine
-        highest_profit = max((cfx_est_reward, flux_est_reward, erg_est_reward, etc_est_reward, rvn_est_reward, firo_est_reward, ethw_est_reward))
+        highest_profit = max((cfx_est_reward, flux_est_reward, erg_est_reward, etc_est_reward, rvn_est_reward, firo_est_reward, ethw_est_reward, beam_est_reward))
 
         if highest_profit >= 0.01:
             new_algo = ()
@@ -327,6 +345,8 @@ else:
                 new_algo = 'firo'
             if ethw_est_reward == highest_profit:
                 new_algo = 'ethw'
+            if beam_est_reward == highest_profit:
+                new_algo = 'beam'
             else:
                 pass
 
