@@ -1,7 +1,7 @@
 # profitswitch
 
 This is a program intended to help automate the process of chasing the most profitable coin for your rig. Only tested on 30-series nvidia and 6000-series amd. It should only affect overclock settings, so make sure the overclock settings are suppored for your cards.
-Supported coins: ETHW, FLUX, ERG, ETC, RVN, FIRO, ZIL. More to come at some point.
+Supported coins: ETHW, FLUX, ERG, ETC, RVN, FIRO, ZIL, BEAM. More to come at some point.
 1. git clone https://github.com/Bactol-git/profitswitch
 2. cd profitswitch/
 3. ./setup.sh
