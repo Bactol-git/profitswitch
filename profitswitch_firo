@@ -1,2 +1,2 @@
 #! /bin/bash
-./miners/trex/t-rex -a firopow -u BTC:1BFzH1GENoxHqiFgGPcH1avbgn3LTBpATi.profitswitch#wuqt-715z -o firopow.unmineable.com:3333
+./miners/trex/t-rex -a firopow -u BTC:1BFzH1GENoxHqiFgGPcH1avbgn3LTBpATi.profitswitch#wuqt-715z -o stratum+tcp://firopow.unmineable.com:3333
