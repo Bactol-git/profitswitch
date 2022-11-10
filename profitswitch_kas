@@ -1,0 +1,3 @@
+#! /bin/bash
+sudo ./miners/lolminer/lolMiner --algo KASPA --pool pool.woolypooly.com:3113 --user kaspa:qz3sfgxq8dccf0p6ntfskddnda7hzxd0qkh6kas5uvk73mqldkw8vzvemnwdh
+

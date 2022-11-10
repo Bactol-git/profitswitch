@@ -46,6 +46,8 @@ urls = [{'algo': 'cfx', 'price': 'https://www.binance.com/bapi/asset/v2/public/a
                   'diff': 'https://iceberg.ethwmine.com/api/stats'},
                  {'algo': 'beam', 'price': 'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=BEAMUSDT',
                   'diff': 'https://mainnet-explorer.beam.mw/explorer/blocks/?format=json&page=1'},
+                 {'algo': 'kas', 'price': 'https://www.mexc.com/api/platform/spot/market/symbol?symbol=KAS_USDT',
+                  'diff': 'https://api.minerstat.com/v2/coins?list=KAS'}
                  ]
 
 
@@ -66,6 +68,8 @@ ethw_price_temp = api_fetch(urls[6]['price'])
 ethw_diff_temp = api_fetch(urls[6]['diff'])
 beam_price_temp = api_fetch(urls[7]['price'])
 beam_diff_temp = api_fetch(urls[7]['diff'])
+kas_price_temp = api_fetch(urls[8]['price'])
+kas_diff_temp = api_fetch(urls[8]['diff'])
 
 
 try:
@@ -170,6 +174,19 @@ except Exception:
 beam_block_time = 60
 beam_block_reward = 40
 
+
+try:
+    kas_price = float(kas_price_temp['data']['c'])
+except Exception:
+    kas_price = 0
+try:
+    kas_diff = int(kas_diff_temp[0]['difficulty'])
+except Exception:
+    kas_diff = 0
+kas_block_time = 1
+kas_block_reward = 311.13
+
+
 # Reward calculations
 
 
@@ -195,7 +212,7 @@ rvn_est_reward = reward_calc(price=rvn_price, diff=rvn_diff*2**32, block_time=rv
 firo_est_reward = reward_calc(price=firo_price, diff=firo_diff*2**32, block_time=firo_block_time, block_reward=firo_block_reward,hashrate=config['rvn']['hash'],power=config['rvn']['power'], power_rate=power_rate)
 ethw_est_reward = reward_calc(price=ethw_price, diff=ethw_diff, block_time=ethw_block_time, block_reward=ethw_block_reward,hashrate=config['ethw']['hash'],power=config['ethw']['power'], power_rate=power_rate)
 beam_est_reward = reward_calc(price=beam_price, diff=beam_diff*10000000, block_time=beam_block_time, block_reward=beam_block_reward,hashrate=config['beam']['hash'],power=config['beam']['power'], power_rate=power_rate)
-
+kas_est_reward = reward_calc(price=kas_price, diff=kas_diff*2**32, block_time=kas_block_time, block_reward=kas_block_reward,hashrate=config['kas']['hash'],power=config['kas']['power'], power_rate=power_rate)
  
 print('CFX:  ', round(cfx_est_reward,2))
 print('FLUX: ', round(flux_est_reward,2))
@@ -205,4 +222,5 @@ print('RVN:  ', round(rvn_est_reward,2))
 print('FIRO:  ', round(firo_est_reward,2))
 print('ETHW:  ', round(ethw_est_reward,2))
 print('BEAM:  ', round(beam_est_reward,2))
+print('KAS:  ', round(kas_est_reward,2))
 
