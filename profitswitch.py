@@ -179,35 +179,21 @@ else:
                   'diff': 'https://api.minerstat.com/v2/coins?list=KAS'}
                  ]
 
+        price_temp = {}
+        diff_temp = {}
 
-
-        cfx_price_temp = api_fetch(urls[0]['price'])
-        cfx_diff_temp = api_fetch(urls[0]['diff'])
-        flux_price_temp = api_fetch(urls[1]['price'])
-        flux_diff_temp = api_fetch(urls[1]['diff'])
-        erg_price_temp = api_fetch(urls[2]['price'])
-        erg_diff_temp = api_fetch(urls[2]['diff'])
-        etc_price_temp = api_fetch(urls[3]['price'])
-        etc_diff_temp = api_fetch(urls[3]['diff'])
-        rvn_price_temp = api_fetch(urls[4]['price'])
-        rvn_diff_temp = api_fetch(urls[4]['diff'])
-        firo_price_temp = api_fetch(urls[5]['price'])
-        firo_diff_temp = api_fetch(urls[5]['diff'])
-        ethw_price_temp = api_fetch(urls[6]['price'])
-        ethw_diff_temp = api_fetch(urls[6]['diff'])
-        beam_price_temp = api_fetch(urls[7]['price'])
-        beam_diff_temp = api_fetch(urls[7]['diff'])
-        kas_price_temp = api_fetch(urls[8]['price'])
-        kas_diff_temp = api_fetch(urls[8]['diff'])
+        for element in urls:
+            price_temp['%s' % element['algo']] = api_fetch(element['price'])
+            diff_temp['%s' % element['algo']] = api_fetch(element['diff'])
 
 
         try:
-            cfx_price = float(cfx_price_temp['data']['c'])
+            cfx_price = float(price_temp['cfx']['data']['c'])
         except Exception as e:
             print(e)
             cfx_price = 0
         try:
-            cfx_diff = int(cfx_diff_temp['data']['list'][0]['difficulty'])
+            cfx_diff = int(diff_temp['cfx']['data']['list'][0]['difficulty'])
         except Exception:
             cfx_diff = 0
 
@@ -215,89 +201,92 @@ else:
         cfx_block_reward = 2
 
         try:
-            flux_price = float(flux_price_temp['data']['c'])
+            flux_price = float(price_temp['flux']['data']['c'])
         except Exception:
             flux_price = 0
         try:
-            flux_diff = int(flux_diff_temp['data']['difficulty'])
+            flux_diff = int(diff_temp['flux']['info']['difficulty'])
         except Exception:
             flux_diff = 0
         flux_block_time = 120
-        flux_block_reward = 37.5
+        try:
+            flux_block_reward = float(diff_temp['flux']['info']['reward']/100000000)/2
+        except Exception:
+            flux_block_reward = 0.00000001
 
         try:
-            erg_price = float(erg_price_temp['stats'][-1][1])
+            erg_price = float(price_temp['erg']['stats'][-1][1])
         except Exception:
             erg_price = 0
         try:
-            erg_diff = int(erg_diff_temp['items'][0]['difficulty'])
+            erg_diff = int(diff_temp['erg']['items'][0]['difficulty'])
         except Exception:
             erg_diff = 0
         erg_block_time = 120
         try:
-            erg_block_reward = float(erg_diff_temp['items'][0]['minerReward'])/1000000000
+            erg_block_reward = float(diff_temp['erg']['items'][0]['minerReward'])/1000000000
         except Exception:
             erg_block_reward = 0.00000001
             
         try:
-            etc_price = float(etc_price_temp['data']['c'])
+            etc_price = float(price_temp['etc']['data']['c'])
         except Exception:
             etc_price = 0
         try:
-            etc_diff = int(etc_diff_temp[0]['difficulty'])
+            etc_diff = int(diff_temp['etc'][0]['difficulty'])
         except Exception:
             etc_diff = 0
         etc_block_time = 13
         try:
-            etc_block_reward = float(etc_diff_temp[0]['reward_block'])
+            etc_block_reward = float(diff_temp['etc'][0]['reward_block'])
         except Exception:
             etc_block_reward = 0.00000001
             
         try:
-            rvn_price = float(rvn_price_temp['data']['c'])
+            rvn_price = float(price_temp['rvn']['data']['c'])
         except Exception:
             rvn_price = 0
         try:
-            rvn_diff = int(rvn_diff_temp['info']['difficulty'])
+            rvn_diff = int(diff_temp['rvn']['info']['difficulty'])
         except Exception:
             rvn_diff = 0
         rvn_block_time = 60
         try:
-            rvn_block_reward = float(rvn_diff_temp['info']['reward'])/100000000
+            rvn_block_reward = float(diff_temp['rvn']['info']['reward'])/100000000
         except Exception:
             rvn_block_reward = 0.00000001
 
         try:
-            firo_price = float(firo_price_temp['data']['c'])
+            firo_price = float(price_temp['firo']['data']['c'])
         except Exception:
             firo_price = 0
         try:
-            firo_diff = int(firo_diff_temp[0]['difficulty'])
+            firo_diff = int(diff_temp['firo'][0]['difficulty'])
         except Exception:
             firo_diff = 0
         firo_block_time = 150
         try:
-            firo_block_reward = float(firo_diff_temp[0]['reward_block'])
+            firo_block_reward = float(diff_temp['firo'][0]['reward_block'])
         except Exception:
             firo_block_reward = 0.00000001
 
         try:
-            ethw_price = float(ethw_price_temp['result']['price'])
+            ethw_price = float(price_temp['ethw']['result']['price'])
         except Exception:
             ethw_price = 0
         try:
-            ethw_diff = int(ethw_diff_temp['nodes'][0]['difficulty'])
+            ethw_diff = int(diff_temp['ethw']['nodes'][0]['difficulty'])
         except Exception:
             ethw_diff = 0
         ethw_block_time = 13
         ethw_block_reward = 2
 
         try:
-            beam_price = float(beam_price_temp['data']['c'])
+            beam_price = float(price_temp['beam']['data']['c'])
         except Exception:
             beam_price = 0
         try:
-            beam_diff = int(beam_diff_temp['results'][0]['difficulty'])
+            beam_diff = int(diff_temp['beam']['results'][0]['difficulty'])
         except Exception:
             beam_diff = 0
         beam_block_time = 60
@@ -305,18 +294,20 @@ else:
 
 
         try:
-            kas_price = float(kas_price_temp['data']['c'])
+            kas_price = float(price_temp['kas']['data']['c'])
         except Exception:
             kas_price = 0
         try:
-            kas_diff = int(kas_diff_temp[0]['difficulty'])
+            kas_diff = int(diff_temp['kas'][0]['difficulty'])
         except Exception:
             kas_diff = 0
         kas_block_time = 1
-        kas_block_reward = 311.13
+        try:
+            kas_block_reward = float(diff_temp['kas'][0]['reward_block'])
+        except Exception:
+            kas_block_reward = 0.00000001
 
 
-        # Reward calculations
 
 
         def reward_calc(price, diff, block_time, block_reward, hashrate, power, power_rate):

@@ -8,4 +8,5 @@ sudo cp profitswitch_flux /
 sudo cp profitswitch_ethw /
 sudo cp profitswitch_rvn /
 sudo cp profitswitch_firo /
-
+sudo cp profitswitch_beam /
+sudo cp profitswitch_kas /
