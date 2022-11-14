@@ -28,3 +28,10 @@ trm=$(curl https://api.github.com/repos/todxx/teamredminer/releases/latest| jq -
 wget $trm
 tar -xf teamredminer* --dir="$(pwd)/miners/teamredminer" --strip-components=1
 rm teamredminer*
+
+#bzminer
+mkdir "$(pwd)/miners/bzminer"
+bzm=$(curl https://api.github.com/repos/bzminer/bzminer/releases/latest| jq -r ".assets[] | select(.name | test(\"linux.tar.gz\")) | .browser_download_url")
+wget $bzm
+tar -xf bzminer* --dir="$(pwd)/miners/bzminer" --strip-components=1
+rm bzminer*
