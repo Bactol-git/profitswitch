@@ -162,7 +162,7 @@ else:
         urls = [{'algo': 'cfx', 'price': 'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=CFXUSDT',
                   'diff': 'https://confluxscan.net/v1/block?limit=10&skip=0'},
                  {'algo': 'flux', 'price':'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=FLUXUSDT',
-                  'diff': 'https://api.runonflux.io/daemon/getmininginfo'},
+                  'diff': 'https://explorer.runonflux.io/api/status?q=getInfo'},
                  {'algo': 'erg', 'price': 'https://www.coingecko.com/price_charts/2484/usd/24_hours.json',
                   'diff': 'https://api.ergoplatform.com/blocks?limit=1&offset=0&sortBy=height&sortDirection=desc'},
                  {'algo': 'etc', 'price': 'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=ETCUSDT',
@@ -171,7 +171,7 @@ else:
                   'diff': 'https://explorer.mangofarmassets.com/api/status?q=getInfo'},
                  {'algo': 'firo', 'price': 'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=FIROUSDT',
                   'diff': 'https://api.minerstat.com/v2/coins?list=FIRO'},
-                 {'algo': 'ethw', 'price': 'https://ftx.com/api/markets/ETHW/USD',
+                 {'algo': 'ethw', 'price': 'https://api.coingecko.com/api/v3/simple/price?ids=wrapped-ethw&vs_currencies=usd',
                   'diff': 'https://iceberg.ethwmine.com/api/stats'},
                  {'algo': 'beam', 'price': 'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=BEAMUSDT',
                   'diff': 'https://mainnet-explorer.beam.mw/explorer/blocks/?format=json&page=1'},
@@ -271,7 +271,7 @@ else:
             firo_block_reward = 0.00000001
 
         try:
-            ethw_price = float(price_temp['ethw']['result']['price'])
+            ethw_price = float(price_temp['ethw']['wrapped-ethw']['usd'])
         except Exception:
             ethw_price = 0
         try:
@@ -306,7 +306,6 @@ else:
             kas_block_reward = float(diff_temp['kas'][0]['reward_block'])
         except Exception:
             kas_block_reward = 0.00000001
-
 
 
 

@@ -42,7 +42,7 @@ urls = [{'algo': 'cfx', 'price': 'https://www.binance.com/bapi/asset/v2/public/a
                   'diff': 'https://explorer.mangofarmassets.com/api/status?q=getInfo'},
                  {'algo': 'firo', 'price': 'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=FIROUSDT',
                   'diff': 'https://api.minerstat.com/v2/coins?list=FIRO'},
-                 {'algo': 'ethw', 'price': 'https://ftx.com/api/markets/ETHW/USD',
+                 {'algo': 'ethw', 'price': 'https://api.coingecko.com/api/v3/simple/price?ids=wrapped-ethw&vs_currencies=usd',
                   'diff': 'https://iceberg.ethwmine.com/api/stats'},
                  {'algo': 'beam', 'price': 'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=BEAMUSDT',
                   'diff': 'https://mainnet-explorer.beam.mw/explorer/blocks/?format=json&page=1'},
@@ -142,7 +142,7 @@ except Exception:
     firo_block_reward = 0.00000001
 
 try:
-    ethw_price = float(price_temp['ethw']['result']['price'])
+    ethw_price = float(price_temp['ethw']['wrapped-ethw']['usd'])
 except Exception:
     ethw_price = 0
 try:
