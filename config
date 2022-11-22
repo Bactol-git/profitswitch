@@ -9,5 +9,6 @@
 "ethw":{"hash": 386, "power": 1090},
 "beam":{"hash": 100, "power": 100},
 "kas":{"hash": 100, "power": 100},
+"rxd":{"hash": 100, "power": 100},
 "flux_PA_multiplier": 1.895
 }

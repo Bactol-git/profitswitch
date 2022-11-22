@@ -176,7 +176,9 @@ else:
                  {'algo': 'beam', 'price': 'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=BEAMUSDT',
                   'diff': 'https://mainnet-explorer.beam.mw/explorer/blocks/?format=json&page=1'},
                  {'algo': 'kas', 'price': 'https://www.mexc.com/api/platform/spot/market/symbol?symbol=KAS_USDT',
-                  'diff': 'https://api.minerstat.com/v2/coins?list=KAS'}
+                  'diff': 'https://api.minerstat.com/v2/coins?list=KAS'},
+                 {'algo': 'rxd', 'price': 'https://api.coingecko.com/api/v3/simple/price?ids=radiant&vs_currencies=usd',
+                  'diff': 'https://radiantexplorer.com/ext/getsummary'}
                  ]
 
         price_temp = {}
@@ -308,6 +310,17 @@ else:
             kas_block_reward = 0.00000001
 
 
+        try:
+            rxd_price = float(price_temp['rxd']['radiant']['usd'])
+        except Exception:
+            rxd_price = 0
+        try:
+            rxd_diff = int(diff_temp['rxd']['difficulty'])
+        except Exception:
+            rxd_diff = 0
+        rxd_block_time = 300
+        rxd_block_reward = 50000
+
 
         def reward_calc(price, diff, block_time, block_reward, hashrate, power, power_rate):
             if price != 0 and diff != 0 and block_time != 0:
@@ -332,10 +345,10 @@ else:
         ethw_est_reward = reward_calc(price=ethw_price, diff=ethw_diff, block_time=ethw_block_time, block_reward=ethw_block_reward,hashrate=config['ethw']['hash'],power=config['ethw']['power'], power_rate=power_rate)
         beam_est_reward = reward_calc(price=beam_price, diff=beam_diff*10000000, block_time=beam_block_time, block_reward=beam_block_reward,hashrate=config['beam']['hash'],power=config['beam']['power'], power_rate=power_rate)
         kas_est_reward = reward_calc(price=kas_price, diff=kas_diff*2**32, block_time=kas_block_time, block_reward=kas_block_reward,hashrate=config['kas']['hash'],power=config['kas']['power'], power_rate=power_rate)
-
+        rxd_est_reward = reward_calc(price=rxd_price, diff=rxd_diff*2**32, block_time=rxd_block_time, block_reward=rxd_block_reward,hashrate=config['rxd']['hash'],power=config['rxd']['power'], power_rate=power_rate)
 
         # Choose what algo to mine
-        highest_profit = max((cfx_est_reward, flux_est_reward, erg_est_reward, etc_est_reward, rvn_est_reward, firo_est_reward, ethw_est_reward, beam_est_reward, kas_est_reward))
+        highest_profit = max((cfx_est_reward, flux_est_reward, erg_est_reward, etc_est_reward, rvn_est_reward, firo_est_reward, ethw_est_reward, beam_est_reward, kas_est_reward, rxd_est_reward))
 
         if highest_profit >= 0.01:
             new_algo = ()
@@ -357,6 +370,8 @@ else:
                 new_algo = 'beam'
             if kas_est_reward == highest_profit:
                 new_algo = 'kas'
+            if rxd_est_reward == highest_profit:
+                new_algo = 'rxd'
             else:
                 pass
 
