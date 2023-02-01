@@ -1,2 +1,2 @@
 #! /bin/bash
-./miners/trex/t-rex -a kawpow -u BTC:1BFzH1GENoxHqiFgGPcH1avbgn3LTBpATi.profitswitch#wuqt-715z -o kp.unmineable.com:3333
+./miners/trex/t-rex -a kawpow -u RSx9HLDYCyYuFwK2ivwgwEEf8DVZKgdUDh.profitswitch -o rvn.2miners.com:6060

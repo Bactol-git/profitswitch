@@ -1,2 +1,2 @@
 #! /bin/bash
-sudo ./miners/lolminer/lolMiner --algo BEAM-III --pool stratum+ssl://beamhash.unmineable.com:4444 --user BTC:1BFzH1GENoxHqiFgGPcH1avbgn3LTBpATi.profitswitch#wuqt-715z
+sudo ./miners/lolminer/lolMiner --algo BEAM-III --pool beam.2miners.com:5252 --user 3610379b521e503bf6144659f68e30dbb1a4227c53487cdd71a4280952a86d045ba.profitswitch

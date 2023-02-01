@@ -44,12 +44,14 @@ urls = [{'algo': 'cfx', 'price': 'https://www.binance.com/bapi/asset/v2/public/a
                   'diff': 'https://api.minerstat.com/v2/coins?list=FIRO'},
                  {'algo': 'ethw', 'price': 'https://api.coingecko.com/api/v3/simple/price?ids=wrapped-ethw&vs_currencies=usd',
                   'diff': 'https://iceberg.ethwmine.com/api/stats'},
-                 {'algo': 'beam', 'price': 'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=BEAMUSDT',
+                 {'algo': 'beam', 'price': 'https://api.coingecko.com/api/v3/simple/price?ids=beam&vs_currencies=usd',
                   'diff': 'https://mainnet-explorer.beam.mw/explorer/blocks/?format=json&page=1'},
                  {'algo': 'kas', 'price': 'https://www.mexc.com/api/platform/spot/market/symbol?symbol=KAS_USDT',
                   'diff': 'https://api.minerstat.com/v2/coins?list=KAS'},
                  {'algo': 'rxd', 'price': 'https://api.coingecko.com/api/v3/simple/price?ids=radiant&vs_currencies=usd',
-                  'diff': 'https://radiantexplorer.com/ext/getsummary'}
+                  'diff': 'https://radiantexplorer.com/ext/getsummary'},
+                 {'algo': 'clore', 'price': "https://api.txbit.io/api/public/getmarkethistory?market=CLORE/USDT",
+                  'diff': 'https://exploreblockchain.clore.ai/api/getdifficulty'}
                  ]
 
 price_temp = {}
@@ -155,7 +157,7 @@ ethw_block_time = 13
 ethw_block_reward = 2
 
 try:
-    beam_price = float(price_temp['beam']['data']['c'])
+    beam_price = float(price_temp['beam']['beam']['usd'])
 except Exception:
     beam_price = 0
 try:
@@ -193,6 +195,28 @@ rxd_block_time = 300
 rxd_block_reward = 50000
 
 
+try:
+    clore_price = float(price_temp['clore']['result'][0]['Price'])
+except Exception as e:
+    clore_price = 0
+try:
+    clore_diff = float(diff_temp['clore'])
+except Exception:
+    clore_diff = 0
+
+try:
+    blocknr = json.loads(requests.get('https://exploreblockchain.clore.ai/api/getblockcount').text)
+    blockhash = json.loads(requests.get(str('https://exploreblockchain.clore.ai/api/getblockhash?index=') + str(blocknr)).text)
+    block = json.loads(requests.get(str('https://exploreblockchain.clore.ai/api/getblock?hash=') + blockhash).text)
+    txid = block['tx'][0]
+    transactions = json.loads(requests.get(str('https://exploreblockchain.clore.ai/api/getrawtransaction?txid=') + txid + str('&decrypt=1')).text)
+    clore_block_reward = transactions['vout'][1]['value']
+except:
+    clore_block_reward = 0.0001
+
+clore_block_time = 60
+
+
 def reward_calc(price, diff, block_time, block_reward, hashrate, power, power_rate):
     if price != 0 and diff != 0 and block_time != 0:
         HR_req = diff/block_time
@@ -217,6 +241,7 @@ ethw_est_reward = reward_calc(price=ethw_price, diff=ethw_diff, block_time=ethw_
 beam_est_reward = reward_calc(price=beam_price, diff=beam_diff*10000000, block_time=beam_block_time, block_reward=beam_block_reward,hashrate=config['beam']['hash'],power=config['beam']['power'], power_rate=power_rate)
 kas_est_reward = reward_calc(price=kas_price, diff=kas_diff*2**32, block_time=kas_block_time, block_reward=kas_block_reward,hashrate=config['kas']['hash'],power=config['kas']['power'], power_rate=power_rate)
 rxd_est_reward = reward_calc(price=rxd_price, diff=rxd_diff*2**32, block_time=rxd_block_time, block_reward=rxd_block_reward,hashrate=config['rxd']['hash'],power=config['rxd']['power'], power_rate=power_rate)
+clore_est_reward = reward_calc(price=clore_price, diff=clore_diff*2**32, block_time=clore_block_time, block_reward=clore_block_reward,hashrate=config['clore']['hash'],power=config['clore']['power'], power_rate=power_rate)
  
 print('CFX:  ', round(cfx_est_reward,2))
 print('FLUX: ', round(flux_est_reward,2))
@@ -228,3 +253,4 @@ print('ETHW:  ', round(ethw_est_reward,2))
 print('BEAM:  ', round(beam_est_reward,2))
 print('KAS:  ', round(kas_est_reward,2))
 print('RXD:  ', round(rxd_est_reward,2))
+print('CLORE:  ', round(clore_est_reward,2))

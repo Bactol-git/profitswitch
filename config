@@ -10,5 +10,6 @@
 "beam":{"hash": 100, "power": 100},
 "kas":{"hash": 100, "power": 100},
 "rxd":{"hash": 100, "power": 100},
+"clore":{"hash": 188, "power": 1200},
 "flux_PA_multiplier": 1.895
 }

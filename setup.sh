@@ -31,6 +31,7 @@ add_permission_ethw='"ALL=(ALL) NOPASSWD: $(pwd)/profitswitch_ethw"'
 add_permission_beam='"ALL=(ALL) NOPASSWD: $(pwd)/profitswitch_beam"'
 add_permission_kas='"ALL=(ALL) NOPASSWD: $(pwd)/profitswitch_kas"'
 add_permission_rxd='"ALL=(ALL) NOPASSWD: $(pwd)/profitswitch_rxd"'
+add_permission_clore='"ALL=(ALL) NOPASSWD: $(pwd)/profitswitch_clore"'
 
 
 add_permission_amd_OC_cfx='"ALL=(ALL) NOPASSWD: $(pwd)/overclocks/amd_OC_cfx"'
@@ -53,6 +54,8 @@ add_permission_amd_OC_kas='"ALL=(ALL) NOPASSWD: $(pwd)/overclocks/amd_OC_kas"'
 add_permission_nvidia_OC_kas='"ALL=(ALL) NOPASSWD: $(pwd)/overclocks/nvidia_OC_kas"'
 add_permission_amd_OC_rxd='"ALL=(ALL) NOPASSWD: $(pwd)/overclocks/amd_OC_rxd"'
 add_permission_nvidia_OC_rxd='"ALL=(ALL) NOPASSWD: $(pwd)/overclocks/nvidia_OC_rxd"'
+add_permission_amd_OC_clore='"ALL=(ALL) NOPASSWD: $(pwd)/overclocks/amd_OC_clore"'
+add_permission_nvidia_OC_clore='"ALL=(ALL) NOPASSWD: $(pwd)/overclocks/nvidia_OC_clore"'
 
 add_permission_kill='"ALL=(ALL) NOPASSWD: /bin/kill"'
 add_permission_pkill='"ALL=(ALL) NOPASSWD: /bin/pkill"'
@@ -68,6 +71,7 @@ sudo bash -c "echo $user $add_permission_ethw >> /etc/sudoers.d/profitswitch_inc
 sudo bash -c "echo $user $add_permission_beam >> /etc/sudoers.d/profitswitch_include_file"
 sudo bash -c "echo $user $add_permission_kas >> /etc/sudoers.d/profitswitch_include_file"
 sudo bash -c "echo $user $add_permission_rxd >> /etc/sudoers.d/profitswitch_include_file"
+sudo bash -c "echo $user $add_permission_clore >> /etc/sudoers.d/profitswitch_include_file"
 
 sudo bash -c "echo $user $add_permission_amd_OC_cfx >> /etc/sudoers.d/profitswitch_include_file"
 sudo bash -c "echo $user $add_permission_nvidia_OC_cfx >> /etc/sudoers.d/profitswitch_include_file"
@@ -89,6 +93,8 @@ sudo bash -c "echo $user $add_permission_amd_OC_kas >> /etc/sudoers.d/profitswit
 sudo bash -c "echo $user $add_permission_nvidia_OC_kas >> /etc/sudoers.d/profitswitch_include_file"
 sudo bash -c "echo $user $add_permission_amd_OC_rxd >> /etc/sudoers.d/profitswitch_include_file"
 sudo bash -c "echo $user $add_permission_nvidia_OC_rxd >> /etc/sudoers.d/profitswitch_include_file"
+sudo bash -c "echo $user $add_permission_amd_OC_clore >> /etc/sudoers.d/profitswitch_include_file"
+sudo bash -c "echo $user $add_permission_nvidia_OC_clore >> /etc/sudoers.d/profitswitch_include_file"
 
 
 sudo bash -c "echo $user $add_permission_kill >> /etc/sudoers.d/profitswitch_include_file"

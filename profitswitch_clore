@@ -1,0 +1,2 @@
+#! /bin/bash
+./miners/trex/t-rex -a kawpow -u ALGspZ8VLc1tKG5hJJtfQP4Qr4F7dw377s.profitswitch -o stratum+tcp://clore-connect.coinhunters.space:10001
