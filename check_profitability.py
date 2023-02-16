@@ -34,7 +34,7 @@ urls = [{'algo': 'cfx', 'price': 'https://www.binance.com/bapi/asset/v2/public/a
                   'diff': 'https://confluxscan.net/v1/block?limit=10&skip=0'},
                  {'algo': 'flux', 'price':'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=FLUXUSDT',
                   'diff': 'https://explorer.runonflux.io/api/status?q=getInfo'},
-                 {'algo': 'erg', 'price': 'https://www.coingecko.com/price_charts/2484/usd/24_hours.json',
+                 {'algo': 'erg', 'price': 'https://api.coingecko.com/api/v3/simple/price?ids=ergo&vs_currencies=usd',
                   'diff': 'https://api.ergoplatform.com/blocks?limit=1&offset=0&sortBy=height&sortDirection=desc'},
                  {'algo': 'etc', 'price': 'https://www.binance.com/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?symbol=ETCUSDT',
                   'diff': 'https://api.minerstat.com/v2/coins?list=ETC'},
@@ -90,7 +90,7 @@ except Exception:
     flux_block_reward = 0.00000001
 
 try:
-    erg_price = float(price_temp['erg']['stats'][-1][1])
+    erg_price = float(price_temp['ergo']['usd'])
 except Exception:
     erg_price = 0
 try:
