@@ -1,3 +1,3 @@
 #! /bin/bash
 #sudo ./miners/lolminer/lolMiner --algo KASPA --pool pool.eu.woolypooly.com:3113 --user kaspa:qz3sfgxq8dccf0p6ntfskddnda7hzxd0qkh6kas5uvk73mqldkw8vzvemnwdh.profitswitch
-./miners/bzminer/bzminer -a kaspa -w kaspa:qzfcyh08k7cqsnjjrn9v3pcvd8hy8qe0jjprlzdyxpmfpz4a8e6vygymwrwpl.profitswitch -p stratum+tcp://pool.eu.woolypooly.com:3113 --oc_lock_memory_clock 810 --nc 1
+./miners/bzminer/bzminer -a kaspa -w kaspa:qzfcyh08k7cqsnjjrn9v3pcvd8hy8qe0jjprlzdyxpmfpz4a8e6vygymwrwpl.profitswitch -p stratum+tcp://pool.eu.woolypooly.com:3112 --oc_lock_memory_clock 810 --nc 1
