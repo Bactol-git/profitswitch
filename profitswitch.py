@@ -202,7 +202,7 @@ else:
             cfx_diff = 0
 
         cfx_block_time = 0.5
-        cfx_block_reward = 2
+        cfx_block_reward = 1
 
         try:
             flux_price = float(price_temp['flux']['data']['c'])
