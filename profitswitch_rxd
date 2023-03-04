@@ -1,2 +1,2 @@
 #! /bin/bash
-./miners/bzminer/bzminer -a radiant -w 17npANSk622HAWJ9KeimjyVFrKi8VbZtxm.profitswitch -p stratum+tcp://pool.eu.woolypooly.com:3122
+./miners/bzminer/bzminer -a radiant -w 17npANSk622HAWJ9KeimjyVFrKi8VbZtxm.profitswitch -p stratum+tcp://eu.vipor.net:5066
