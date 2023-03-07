@@ -1,0 +1,12 @@
+[{"algo":"rxd", "lock core clock": [1470], "core offset": [100], "lock memory": [810], "memory offset": [0], "fan": [60], "power limit": [120, 130]}, 
+{"algo":"kas", "lock core clock": [1470], "core offset": [100], "lock memory": [810], "memory offset": [0], "fan": [60], "power limit": [120, 130]},
+{"algo":"flux", "lock core clock": [1470], "core offset": [100], "lock memory": [5000], "memory offset": [0], "fan": [60], "power limit": [120, 130]},
+{"algo":"erg", "lock core clock": [1470], "core offset": [100], "lock memory": [0], "memory offset": [3000], "fan": [60], "power limit": [120, 130]},
+{"algo":"etc", "lock core clock": [1470], "core offset": [100], "lock memory": [0], "memory offset": [3000], "fan": [60], "power limit": [120, 130]},
+{"algo":"ethw", "lock core clock": [1470], "core offset": [100], "lock memory": [0], "memory offset": [3000], "fan": [60], "power limit": [120, 130]},
+{"algo":"cfx", "lock core clock": [1470], "core offset": [100], "lock memory": [0], "memory offset": [2000], "fan": [60], "power limit": [120, 130]},
+{"algo":"beam", "lock core clock": [1470], "core offset": [100], "lock memory": [0], "memory offset": [2000], "fan": [60], "power limit": [120, 130]},
+{"algo":"rvn", "lock core clock": [1470], "core offset": [100], "lock memory": [0], "memory offset": [2400], "fan": [60], "power limit": [120, 130]},
+{"algo":"firo", "lock core clock": [1470], "core offset": [100], "lock memory": [0], "memory offset": [2400], "fan": [60], "power limit": [120, 130]},
+{"algo":"clore", "lock core clock": [1470], "core offset": [100], "lock memory": [0], "memory offset": [2400], "fan": [60], "power limit": [120, 130]},
+{"algo":"zil", "lock core clock": [1470], "core offset": [100], "lock memory": [0], "memory offset": [3000], "fan": [60], "power limit": [120, 130]}]

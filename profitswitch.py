@@ -71,9 +71,26 @@ if height_temp >= 99 or height_temp ==0:
             if config['cards'] == 'amd':
                 start_OC = str('sudo ./overclocks/amd_OC_etc')
             if config['cards'] == 'nvidia':
-                start_OC = str('sudo ./overclocks/nvidia_OC_etc')
+                append_copy = open("make_OC.py", "r")
+                original_text = append_copy.read()
+                append_copy.close()
+
+                append_copy = open("make_OC.py", "w")
+                append_copy.write(str("algo = '{algo}'\n").format(algo='etc'))
+                append_copy.write(original_text)
+                append_copy.close()
+                start_OC = str('sudo ./nvidia_OC')
+                
             if config['cards'] == 'mixed':
-                start_OC = str('sudo ./overclocks/amd_OC_etc')  + str(' && sudo .&(pwd)/overclocks/nvidia_OC_etc')
+                append_copy = open("make_OC.py", "r")
+                original_text = append_copy.read()
+                append_copy.close()
+
+                append_copy = open("make_OC.py", "w")
+                append_copy.write(str("algo = '{algo}'\n").format(algo='etc'))
+                append_copy.write(original_text)
+                append_copy.close()
+                start_OC = str('sudo ./overclocks/amd_OC_etc')  + str(' && sudo .&(pwd)/nvidia_OC')
                 
             os.system(start_OC)
             if config['cards'] == 'amd':
@@ -409,9 +426,25 @@ else:
             if config['cards'] == 'amd':
                 start_OC = str('sudo ./overclocks/amd_OC_') + new_algo
             if config['cards'] == 'nvidia':
-                start_OC = str('sudo ./overclocks/nvidia_OC_') + new_algo
+                append_copy = open("make_OC.py", "r")
+                original_text = append_copy.read()
+                append_copy.close()
+
+                append_copy = open("make_OC.py", "w")
+                append_copy.write(str("algo = '{algo}'\n").format(algo=new_algo))
+                append_copy.write(original_text)
+                append_copy.close()
+                start_OC = str('sudo ./nvidia_OC')
             if config['cards'] == 'mixed':
-                start_OC = str('sudo ./overclocks/amd_OC_') + new_algo + str(' && sudo .&(pwd)/overclocks/nvidia_OC_') + new_algo 
+                append_copy = open("make_OC.py", "r")
+                original_text = append_copy.read()
+                append_copy.close()
+
+                append_copy = open("make_OC.py", "w")
+                append_copy.write(str("algo = '{algo}'\n").format(algo='etc'))
+                append_copy.write(original_text)
+                append_copy.close()
+                start_OC = str('sudo ./overclocks/amd_OC_') + new_algo + str(' && sudo .&(pwd)/nvidia_OC') 
 
             try:
                 os.system(start_OC)
