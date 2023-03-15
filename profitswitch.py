@@ -16,7 +16,7 @@ height_temp = int(height[len(height)-2:])
 print(height_temp)
 
 
-if height_temp >= 99 or height_temp ==0:
+if height_temp >= 99:
 
     find_PID = str("ps -ef | grep profitswitch_ | grep -v grep | awk '{print $2}'")
 
@@ -97,6 +97,7 @@ if height_temp >= 99 or height_temp ==0:
                 time.sleep(4)
             start_zil = str("nohup sudo ./zilswitch_zil > log.out 2>&1 &")
             os.system(start_zil)
+            time.sleep(120)
         except Exception as e:
             print(e)
 
